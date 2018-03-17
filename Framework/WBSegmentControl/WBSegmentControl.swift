@@ -446,8 +446,8 @@ public class WBSegmentControl: UIControl {
         var size = CGSize.zero
         switch segment.content.type {
         case let .text(text):
-            size = (text as NSString).size(attributes: [
-                NSFontAttributeName: segmentTextBold ? UIFont.boldSystemFont(ofSize: self.segmentTextFontSize) : UIFont.systemFont(ofSize: self.segmentTextFontSize)
+            size = (text as NSString).size(withAttributes: [
+                NSAttributedStringKey.font: segmentTextBold ? UIFont.boldSystemFont(ofSize: self.segmentTextFontSize) : UIFont.systemFont(ofSize: self.segmentTextFontSize)
                 ])
         case let .icon(icon):
             size = icon.size

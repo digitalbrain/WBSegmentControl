@@ -68,6 +68,7 @@ public class WBSegmentControl: UIControl {
     public var segmentTextFontSize: CGFloat = 12
     public var segmentForegroundColor: UIColor = UIColor.gray
     public var segmentForegroundColorSelected: UIColor = UIColor.black
+    public var customFont: UIFont? = nil
 
     // Settings - Cover
     public typealias CoverRange = WBSegmentIndicatorRange
@@ -225,7 +226,7 @@ public class WBSegmentControl: UIControl {
             case let .text(text):
                 let layerText = CATextLayer()
                 layerText.string = text
-                let font = segmentTextBold ? UIFont.boldSystemFont(ofSize: self.segmentTextFontSize) : UIFont.systemFont(ofSize: self.segmentTextFontSize)
+                let font = customFont ?? (segmentTextBold ? UIFont.boldSystemFont(ofSize: self.segmentTextFontSize) : UIFont.systemFont(ofSize: self.segmentTextFontSize))
                 layerText.font = CGFont(NSString(string:font.fontName))
                 layerText.fontSize = font.pointSize
                 layerText.frame = content_frame
@@ -447,7 +448,7 @@ public class WBSegmentControl: UIControl {
         switch segment.content.type {
         case let .text(text):
             size = (text as NSString).size(withAttributes: [
-                NSAttributedString.Key.font: segmentTextBold ? UIFont.boldSystemFont(ofSize: self.segmentTextFontSize) : UIFont.systemFont(ofSize: self.segmentTextFontSize)
+                NSAttributedString.Key.font: customFont ?? (segmentTextBold ? UIFont.boldSystemFont(ofSize: self.segmentTextFontSize) : UIFont.systemFont(ofSize: self.segmentTextFontSize))
                 ])
         case let .icon(icon):
             size = icon.size

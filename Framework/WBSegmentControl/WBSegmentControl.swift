@@ -132,10 +132,10 @@ public class WBSegmentControl: UIControl {
         scrollView = UIScrollView()
         self.addSubview(scrollView)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-        self.addConstraint(NSLayoutConstraint(item: scrollView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0))
-        self.addConstraint(NSLayoutConstraint(item: scrollView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0))
-        self.addConstraint(NSLayoutConstraint(item: scrollView, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 0))
-        self.addConstraint(NSLayoutConstraint(item: scrollView, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: scrollView!, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: scrollView!, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: scrollView!, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: scrollView!, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: 0))
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
         scrollView.layer.addSublayer(layerContainer)
@@ -229,8 +229,8 @@ public class WBSegmentControl: UIControl {
                 layerText.font = CGFont(NSString(string:font.fontName))
                 layerText.fontSize = font.pointSize
                 layerText.frame = content_frame
-                layerText.alignmentMode = kCAAlignmentCenter
-                layerText.truncationMode = kCATruncationEnd
+                layerText.alignmentMode = CATextLayerAlignmentMode.center
+                layerText.truncationMode = CATextLayerTruncationMode.end
                 layerText.contentsScale = UIScreen.main.scale
                 layerText.foregroundColor = index == self.selectedIndex ? self.segmentForegroundColorSelected.cgColor : self.segmentForegroundColor.cgColor
                 layerContainer.addSublayer(layerText)
@@ -356,7 +356,7 @@ public class WBSegmentControl: UIControl {
         if self.enableAnimation && validIndex(oldIndex) {
             CATransaction.begin()
             CATransaction.setAnimationDuration(self.animationDuration)
-            CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear))
+            CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear))
             CATransaction.setCompletionBlock({ [unowned self] in
                 switch self.style {
                 case .rainbow:
@@ -447,7 +447,7 @@ public class WBSegmentControl: UIControl {
         switch segment.content.type {
         case let .text(text):
             size = (text as NSString).size(withAttributes: [
-                NSAttributedStringKey.font: segmentTextBold ? UIFont.boldSystemFont(ofSize: self.segmentTextFontSize) : UIFont.systemFont(ofSize: self.segmentTextFontSize)
+                NSAttributedString.Key.font: segmentTextBold ? UIFont.boldSystemFont(ofSize: self.segmentTextFontSize) : UIFont.systemFont(ofSize: self.segmentTextFontSize)
                 ])
         case let .icon(icon):
             size = icon.size
